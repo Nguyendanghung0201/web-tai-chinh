@@ -78,7 +78,6 @@ class user_repository {
             money: dataInsert.khoanvay,
             time: dataInsert.thoihan,
             ngayvay: Date.now(),
-            updated_at:Date.now(),
         });
     }
 
