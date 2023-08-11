@@ -38,7 +38,7 @@ var server = http.createServer(app);
 
 //config update file
 /** @namespace global.config */
-// app.use(cors(global.config.cors));
+app.use(cors());
 const cookieParser = require('cookie-parser');
 //
 app.use(cookieParser());
@@ -48,7 +48,7 @@ app.use(function (err, req, res, next) {
     return res.send({ status: false, msg: "error", code: 700, data: err });
 });
 app.use(function (req, res, next) {
-    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Origin", "http://localhost:8080");
     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
     res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
    
