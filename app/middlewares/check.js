@@ -68,7 +68,7 @@ exports.verifyToken = async function (req, res, next) {
         }
         if (authData) {
             status = true;
-            req.uid = authData.dataMain.Id;
+            req.uid = authData.dataMain;
         }
         if (status === true) {
             return next();
@@ -111,7 +111,7 @@ exports.verifyToken2 = async function (req, res, next) {
         }
         if (authData) {
             status = true;
-            req.uid = authData.dataMain.Id;
+            req.uid = authData.dataMain;
         }
         if (status === true) {
             return next();
