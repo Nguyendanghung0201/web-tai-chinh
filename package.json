@@ -1,0 +1,29 @@
+{
+  "name": "backend",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.20.2",
+    "cors": "^2.8.5",
+    "ejs": "^3.1.9",
+    "express": "^4.18.2",
+    "express-session": "^1.17.3",
+    "jsonwebtoken": "^9.0.1",
+    "knex": "^2.5.1",
+    "knex-paginate": "^3.1.1",
+    "md5": "^2.3.0",
+    "moment": "^2.29.4",
+    "moment-timezone": "^0.5.43",
+    "multer": "^1.4.5-lts.1",
+    "mysql": "^2.18.1",
+    "node-input-validator": "^4.5.1",
+    "phone": "^3.1.38",
+    "slug": "^8.2.3"
+  }
+}
