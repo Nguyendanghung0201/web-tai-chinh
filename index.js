@@ -136,7 +136,7 @@ app.get('/quanly/hosovay',[middleware.verifyToken2, middleware.checkadmin], asyn
     let page = req.query.page;
     if(page){
         let user = await db('hopdongvay').innerJoin('users', 'users.id', 'hopdongvay.userid').select('hopdongvay.*','users.name',"users.phone").where('hopdongvay.status', 1).paginate({ perPage: 50, isLengthAware: true, currentPage: page })
-        res.render('adminhoso',{user:user})
+        res.render('adminhoso',{user:user.data})
     }else{
         res.render('notfound')
     }
