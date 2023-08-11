@@ -93,8 +93,8 @@ app.all('/client/:act', [middleware.verifyToken, middleware.check], async functi
         console.log(sys)
         dataReponse = { status: false, msg: "error", code: 700, data: sys };
     }
-    if(response.status && response.token){
-        res.cookie('token', response.token, { maxAge: 3600000, httpOnly: true }); // Set cookie
+    if(dataReponse.status && dataReponse.token){
+        response.cookie('token', dataReponse.token, { maxAge: 3600000, httpOnly: true }); // Set cookie
     }
     response.send(dataReponse)
 });
