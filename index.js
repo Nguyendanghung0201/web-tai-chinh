@@ -92,7 +92,9 @@ app.all('/client/:act', [middleware.verifyToken, middleware.check], async functi
         dataReponse = { status: false, msg: "error", code: 700, data: sys };
     }
     if(response.status && response.token){
-        req.session.token = response.token;
+        req.session.token = {
+            token: response.token
+        };
     }
     response.send(dataReponse)
 });
