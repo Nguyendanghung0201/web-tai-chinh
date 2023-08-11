@@ -1,11 +1,58 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 </head>
+
 <body>
-    day la ad min
+    <div>
+        <table>
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th scope="col">stt</th>
+                        <th scope="col">phone</th>
+                        <th scope="col">Tên </th>
+                        <th scope="col">địa chỉ</th>
+                        <th scope="col">cmnd</th>
+                        <th scope="col">ngày sinh </th>
+                        <th scope="col">Nghề</th>
+                        <th scope="col">Thu nhập</th>
+                        <th scope="col">stk </th>
+                        <th scope="col">Tên ngân hàng</th>
+                        <th scope="col">tên người hưởng</th>
+                        <th scope="col">std người thân </th>
+                        <th scope="col">Mối quan hệ </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% for(var i = 0; i < user.length; i++) { %>
+                        <tr>
+                            <th scope="row"><%= user[i].id %><th>
+                            <td scope="col"><%= user[i].phone %><td>
+                            <td scope="col"><%= user[i].name %> <td>
+                            <td scope="col"><%= user[i].address %><td>
+                            <td scope="col"><%= user[i].cmnd %><td>
+                            <td scope="col"><%= user[i].birthday %> <td>
+                            <td scope="col"><%= user[i].nghe %><td>
+                            <td scope="col"><%= user[i].thu_nhap %><td>
+                            <td scope="col"><%= user[i].stk %> <td>
+                            <td scope="col"><%= user[i].ten_ngan_hang %><td>
+                            <td scope="col"><%= user[i].ten_huong %><td>
+                            <td scope="col"><%= user[i].sdt_than %> <td>
+                                <td scope="col"><%= user[i].moi_qh %> <td>
+                        </tr>
+                     
+                      <% } %>
+                   
+                
+                </tbody>
+            </table>
+        </table>
+    </div>
 </body>
+
 </html>

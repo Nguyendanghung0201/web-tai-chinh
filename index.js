@@ -116,14 +116,27 @@ app.post('/api/upload', upload.single('file'), [middleware.verifyToken, middlewa
 
 })
 
-app.get('/quanly', async (req, res) => {
-    console.log('admin2')
-    res.render('admin')
+app.get('/quanly/user',[middleware.verifyToken, middleware.checkadmin], async (req, res) => {
+    let page = req.query.page;
+    if(page){
+        let user = await db('users').select('*').where('status', 1).paginate({ perPage: 50, isLengthAware: true, currentPage: page })
+        res.render('admin',{user:user})
+    }else{
+        res.render('notfound')
+    }
+  
 })
-app.get('/quanly/*', async (req, res) => {
-    console.log('admin')
-    res.render('admin')
+app.get('/quanly/hosovay',[middleware.verifyToken, middleware.checkadmin], async (req, res) => {
+    let page = req.query.page;
+    if(page){
+        let user = await db('hopdongvay').innerJoin('users', 'users.id', 'hopdongvay.userid').select('hopdongvay.*','users.name',"users.phone").where('hopdongvay.status', 1).paginate({ perPage: 50, isLengthAware: true, currentPage: page })
+        res.render('adminhoso',{user:user})
+    }else{
+        res.render('notfound')
+    }
+  
 })
+
 app.get('*', async (req, res) => {
    
     res.render('index')
