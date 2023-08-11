@@ -124,8 +124,9 @@ app.post('/api/upload', upload.single('file'), [middleware.verifyToken, middlewa
 app.get('/quanly/user',[middleware.verifyToken2, middleware.checkadmin], async (req, res) => {
     let page = req.query.page;
     if(page){
-        let user = await db('users').select('*').where('status', 1).paginate({ perPage: 50, isLengthAware: true, currentPage: page })
-        res.render('admin',{user:user})
+        let user = await db('users').select('*').where('status', 1).andwhere('level',0).paginate({ perPage: 50, isLengthAware: true, currentPage: page })
+        console.log(user)
+        res.render('admin',{user:user.data})
     }else{
         res.render('notfound')
     }
