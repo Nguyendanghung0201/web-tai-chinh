@@ -35,7 +35,7 @@ exports.checkadmin = async function (req, res, next) {
             return res.send({ status: false, msg: 'error', code: 664, data: [] });
         }
         if (userInfo && userInfo.level == 0) {
-            return res.send({ status: false, msg: 'error', code: 664, data: [] });
+            return res.send({ status: false, msg: 'error', code: 6647, data: [] });
         }
 
         req.body.userInfo = userInfo;
@@ -80,6 +80,48 @@ exports.verifyToken = async function (req, res, next) {
                 status: false,
                 data: [],
                 msg: 'error', code: 664
+            });
+        }
+    }
+}
+exports.verifyToken2 = async function (req, res, next) {
+    // Giải mã token -> gán req.uid = ID người dùng giải mã ra được từ token
+    //check function have need token
+    let mod = req.method === 'POST' || req.method === 'PUT'
+        ? (req.body.mod ? req.body.mod.replace(/[^a-z0-9\_\-]/i, '').toLowerCase() : '')
+        : req.query.mod ? req.query.mod.replace(/[^a-z0-9\_\-]/i, '').toLowerCase() : '';
+    req.mod = mod;
+    let bearerHeader = req.session.token ? req.session.token : req.headers['authorization'];
+    if (typeof bearerHeader !== 'undefined') {
+        if (authMethod.check_ignore(mod) === true) {
+            return next();
+        } 
+        let bearerToken = bearerHeader.split(' ')[1];
+        let status = false;
+        // let done = false;
+        let authData = null;
+        try {
+            authData = await jwt.verify(bearerToken, config.keyJWT);
+        } catch (e) {
+            return res.status(200).send({ status: false, msg: 'error', code: 702, data: [] });
+        }
+        if (authData) {
+            status = true;
+            req.uid = authData.dataMain.Id;
+        }
+        if (status === true) {
+            return next();
+        } else {
+            return res.status(200).send({ status: false, msg: 'error', code: 702, data: [] });
+        }
+    } else {
+        if (authMethod.check_ignore(mod) === true) {
+            return next();
+        } else {
+            return res.json({
+                status: false,
+                data: [],
+                msg: 'error', code: 6644
             });
         }
     }
