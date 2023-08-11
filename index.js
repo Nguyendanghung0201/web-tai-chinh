@@ -54,8 +54,6 @@ app.use(function (req, res, next) {
    
     next();
 });
-const delay = (ms) =>
-    new Promise((resolve) => setTimeout(() => resolve(), ms));
 
 app.all('/client/:act', [middleware.verifyToken, middleware.check], async function (request, response) {
 
@@ -70,7 +68,7 @@ app.all('/client/:act', [middleware.verifyToken, middleware.check], async functi
 
         request.body.files = request.files ? request.files : '';
         if (authMethod) {
-
+            console.log('call api ',act)
             let controller = require('./app/modules/' + act + '/controller');
             if ((controller) && (controller[mod])) {
                 let query = request.body;
