@@ -3,7 +3,7 @@ exports.cors = {
     origin: "*"
 };
 exports.environment = "local";//local, product
-exports.SPort = this.environment === "local" ? "80" : "2021";//local, product
+exports.SPort = this.environment === "local" ? "3000" : "3000";//local, product
 
 exports.configDB = {
     mysql: {
