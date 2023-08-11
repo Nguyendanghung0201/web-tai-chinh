@@ -143,7 +143,7 @@ app.get('/quanly/hosovay',[middleware.verifyToken2, middleware.checkadmin], asyn
 })
 
 app.get('*', async (req, res) => {
-   
+   console.log('index')
     res.render('index')
 })
 

@@ -60,7 +60,9 @@ exports.verifyToken = async function (req, res, next) {
         // let done = false;
         let authData = null;
         try {
+            console.log('token ',bearerToken)
             authData = await jwt.verify(bearerToken, config.keyJWT);
+            console.log(authData)
         } catch (e) {
             return res.status(200).send({ status: false, msg: 'error', code: 702, data: [] });
         }
