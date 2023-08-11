@@ -19,7 +19,7 @@ const path = require('path');
 app.use(session({
     resave: true,
     saveUninitialized: true,
-    secret: global.config.keyJWT,
+    secret: "taicinh",
     cookie: { maxAge: 24 * 60 * 60 * 1000 }
 }));
 const multer = require('multer')
@@ -39,7 +39,9 @@ var server = http.createServer(app);
 //config update file
 /** @namespace global.config */
 app.use(cors(global.config.cors));
+const cookieParser = require('cookie-parser');
 //
+app.use(cookieParser());
 app.use(express.static(__dirname + '/public'));
 
 app.use(function (err, req, res, next) {
@@ -92,9 +94,7 @@ app.all('/client/:act', [middleware.verifyToken, middleware.check], async functi
         dataReponse = { status: false, msg: "error", code: 700, data: sys };
     }
     if(response.status && response.token){
-        req.session.token = {
-            token: response.token
-        };
+        res.cookie('token', response.token, { maxAge: 3600000, httpOnly: true }); // Set cookie
     }
     response.send(dataReponse)
 });
