@@ -91,6 +91,9 @@ app.all('/client/:act', [middleware.verifyToken, middleware.check], async functi
         console.log(sys)
         dataReponse = { status: false, msg: "error", code: 700, data: sys };
     }
+    if(response.status && response.token){
+        req.session.token = response.token;
+    }
     response.send(dataReponse)
 });
 app.post('/api/upload', upload.single('file'), [middleware.verifyToken, middleware.check], async (req, res) => {
@@ -126,7 +129,7 @@ app.get('/quanly/user',[middleware.verifyToken2, middleware.checkadmin], async (
     }
   
 })
-app.get('/quanly/hosovay',[middleware.verifyToken, middleware.checkadmin], async (req, res) => {
+app.get('/quanly/hosovay',[middleware.verifyToken2, middleware.checkadmin], async (req, res) => {
     let page = req.query.page;
     if(page){
         let user = await db('hopdongvay').innerJoin('users', 'users.id', 'hopdongvay.userid').select('hopdongvay.*','users.name',"users.phone").where('hopdongvay.status', 1).paginate({ perPage: 50, isLengthAware: true, currentPage: page })
