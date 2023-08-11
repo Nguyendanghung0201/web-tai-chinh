@@ -38,7 +38,7 @@ var server = http.createServer(app);
 
 //config update file
 /** @namespace global.config */
-app.use(cors(global.config.cors));
+// app.use(cors(global.config.cors));
 const cookieParser = require('cookie-parser');
 //
 app.use(cookieParser());
