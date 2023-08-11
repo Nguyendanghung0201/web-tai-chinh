@@ -125,7 +125,7 @@ app.get('/quanly/*', async (req, res) => {
     res.render('admin')
 })
 app.get('*', async (req, res) => {
-    console.log('clinent')
+   
     res.render('index')
 })
 
