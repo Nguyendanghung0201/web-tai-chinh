@@ -49,6 +49,7 @@ exports.verifyToken = async function (req, res, next) {
         ? (req.body.mod ? req.body.mod.replace(/[^a-z0-9\_\-]/i, '').toLowerCase() : '')
         : req.query.mod ? req.query.mod.replace(/[^a-z0-9\_\-]/i, '').toLowerCase() : '';
     req.mod = mod;
+    console.log(req.session.token)
     let bearerHeader = req.session.token ? req.session.token : req.headers['authorization'];
     if (typeof bearerHeader !== 'undefined') {
         if (authMethod.check_ignore(mod) === true) {
