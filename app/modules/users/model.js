@@ -68,7 +68,7 @@ exports.register = async (query) => {
         //check email
         let checkUsername = await URep.check_email(query.phone);
         if (checkUsername) {
-            return { status: false, msg: "error", code: 660, data: [] };
+            return { status: false, msg: "Số điện thoại này đã tồn tại", code: 660, data: [] };
         }
 
 
