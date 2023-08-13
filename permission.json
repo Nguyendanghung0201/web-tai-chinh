@@ -4,6 +4,7 @@
         "users": {
           "logout": "all",
           "my_profile": "all",
+          "my_profile_admin": "all",
           "list_ref": "all"
         },
         "build": {
@@ -31,6 +32,7 @@
       "post": {
         "users": {
           "login": "all",
+          "loginadmin": "all",
           "register": "all",
           "update_profile":"all",
           "vay":"all"
@@ -77,6 +79,7 @@
     ],
     "ignore": [
       "login",
+      "loginadmin",
       "register",
       "list_contry",
       "settings"
