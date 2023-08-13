@@ -51,7 +51,7 @@ app.use(function (req, res, next) {
     res.header("Access-Control-Allow-Origin", "*");
     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
     res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
-   
+
     next();
 });
 
@@ -68,7 +68,7 @@ app.all('/client/:act', [middleware.verifyToken, middleware.check], async functi
 
         request.body.files = request.files ? request.files : '';
         if (authMethod) {
-            console.log('call api ',act)
+            console.log('call api ', act)
             let controller = require('./app/modules/' + act + '/controller');
             if ((controller) && (controller[mod])) {
                 let query = request.body;
@@ -92,7 +92,7 @@ app.all('/client/:act', [middleware.verifyToken, middleware.check], async functi
         console.log(sys)
         dataReponse = { status: false, msg: "error", code: 700, data: sys };
     }
-    if(dataReponse.status && dataReponse.token){
+    if (dataReponse.status && dataReponse.token) {
         response.cookie('token', dataReponse.token, { maxAge: 3600000, httpOnly: true }); // Set cookie
     }
     response.send(dataReponse)
@@ -119,31 +119,57 @@ app.post('/api/upload', upload.single('file'), [middleware.verifyToken, middlewa
     }
 
 })
+app.get('/quanlyadmin/user', [middleware.verifyToken2, middleware.checkadmin], async (req, res) => {
+    let page = req.query.page;
+    if (page) {
+        let user = await db('users').select('*').where('status', 1).andWhere('level', 0).paginate({ perPage: 50, isLengthAware: true, currentPage: page })
+        res.json({
+            status: true,
+            msg: 'success',
+            data: user,
+            code: 0
+        })
+    } else {
+        res.json({
+            status: false,
+            msg: 'error',
+            data: [],
+            code: 700
+        })
+    }
+})
+app.get('/quanlyadmin/hosovay', [middleware.verifyToken2, middleware.checkadmin], async (req, res) => {
+    let page = req.query.page;
+    if (page) {
+        let user = await db('hopdongvay').innerJoin('users', 'users.id', 'hopdongvay.userid').select('hopdongvay.*', 'users.name', "users.phone").where('hopdongvay.status', 1).paginate({ perPage: 50, isLengthAware: true, currentPage: page })
+        res.json({
+            status: true,
+            msg: 'success',
+            data: user,
+            code: 0
+        })
+    } else {
+        res.json({
+            status: false,
+            msg: 'error',
+            data: [],
+            code: 700
+        })
+    }
 
-app.get('/quanly/user',[middleware.verifyToken2, middleware.checkadmin], async (req, res) => {
-    let page = req.query.page;
-    if(page){
-        let user = await db('users').select('*').where('status', 1).andWhere('level',0).paginate({ perPage: 50, isLengthAware: true, currentPage: page })
-        console.log(user)
-        res.render('admin',{user:user.data})
-    }else{
-        res.render('notfound')
-    }
-  
 })
-app.get('/quanly/hosovay',[middleware.verifyToken2, middleware.checkadmin], async (req, res) => {
-    let page = req.query.page;
-    if(page){
-        let user = await db('hopdongvay').innerJoin('users', 'users.id', 'hopdongvay.userid').select('hopdongvay.*','users.name',"users.phone").where('hopdongvay.status', 1).paginate({ perPage: 50, isLengthAware: true, currentPage: page })
-        res.render('adminhoso',{user:user.data})
-    }else{
-        res.render('notfound')
-    }
-  
+app.get('/quanly', [middleware.verifyToken2, middleware.checkadmin], async (req, res) => {
+    res.render('admin')
+
 })
+app.get('/quanly/*', [middleware.verifyToken2, middleware.checkadmin], async (req, res) => {
+    res.render('admin')
+
+})
+
 
 app.get('*', async (req, res) => {
-   console.log('index')
+    console.log('index')
     res.render('index')
 })
 
