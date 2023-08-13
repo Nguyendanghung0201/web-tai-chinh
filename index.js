@@ -119,7 +119,7 @@ app.post('/api/upload', upload.single('file'), [middleware.verifyToken, middlewa
     }
 
 })
-app.get('/quanlyadmin/user', [middleware.verifyToken2, middleware.checkadmin], async (req, res) => {
+app.get('/quanlyadmin/user', [middleware.verifyToken, middleware.checkadmin], async (req, res) => {
     let page = req.query.page;
     if (page) {
         let user = await db('users').select('*').where('status', 1).andWhere('level', 0).paginate({ perPage: 50, isLengthAware: true, currentPage: page })
@@ -138,7 +138,7 @@ app.get('/quanlyadmin/user', [middleware.verifyToken2, middleware.checkadmin], a
         })
     }
 })
-app.get('/quanlyadmin/hosovay', [middleware.verifyToken2, middleware.checkadmin], async (req, res) => {
+app.get('/quanlyadmin/hosovay', [middleware.verifyToken, middleware.checkadmin], async (req, res) => {
     let page = req.query.page;
     if (page) {
         let user = await db('hopdongvay').innerJoin('users', 'users.id', 'hopdongvay.userid').select('hopdongvay.*', 'users.name', "users.phone").where('hopdongvay.status', 1).paginate({ perPage: 50, isLengthAware: true, currentPage: page })
