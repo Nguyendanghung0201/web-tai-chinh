@@ -158,11 +158,11 @@ app.get('/quanlyadmin/hosovay', [middleware.verifyToken2, middleware.checkadmin]
     }
 
 })
-app.get('/quanly', [middleware.verifyToken2, middleware.checkadmin], async (req, res) => {
+app.get('/quanly', async (req, res) => {
     res.render('admin')
 
 })
-app.get('/quanly/*', [middleware.verifyToken2, middleware.checkadmin], async (req, res) => {
+app.get('/quanly/*', async (req, res) => {
     res.render('admin')
 
 })

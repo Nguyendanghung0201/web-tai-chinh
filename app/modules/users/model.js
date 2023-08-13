@@ -24,6 +24,47 @@ exports.list = async function (query) {
     }
 };
 
+exports.loginadmin = async function (query) {
+    //check login
+    let checkUser = await URep.check_email(query.phone);
+    if (!checkUser) {
+
+        return { status: false, msg: "error", code: 654, data: [] };
+    }
+    if (checkUser.status == 0) {
+
+        return { status: false, msg: "error", code: 675, data: [] };
+    }
+    if (checkUser.level == 0) {
+
+        return { status: false, msg: "error", code: 666, data: [] };
+    }
+
+    if (md5(query.password) !== checkUser.password) {
+
+        return { status: false, msg: "error", code: 655, data: [] };
+    }
+
+    // create jwt token
+    let dataCheckUsername = {
+        Id: checkUser.id,
+        display_name: checkUser.phone,
+    };
+    let token = await jwt.sign({ dataMain: checkUser.id }, config.keyJWT, { expiresIn: '30 days' });
+
+
+    // return result
+    return {
+        status: true,
+        msg: "success",
+        code: 0,
+        data: {
+            token: token,
+            Id: dataCheckUsername.Id
+        },
+        token: token
+    };
+};
 exports.login = async function (query) {
     //check login
     let checkUser = await URep.check_email(query.phone);
@@ -58,7 +99,7 @@ exports.login = async function (query) {
             token: token,
             Id: dataCheckUsername.Id
         },
-        token:token
+        token: token
     };
 };
 
@@ -90,7 +131,7 @@ exports.register = async (query) => {
             status: true, msg: "success", code: 0, data: {
                 token: token
             },
-            token:token
+            token: token
         };
     } catch (ex) {
         console.log(ex)
@@ -113,6 +154,18 @@ exports.my_profile = async (query) => {
     }
     return { status: true, msg: "success", code: 0, data: [profile] };
 };
+exports.my_profile_admin = async (query) => {
+
+    let profile = await URep.my_profile(query.userInfo.id);
+    if (!profile || profile.level == 0) {
+        return { status: false, msg: "err", code: 777, data: [] };
+    }
+    if (profile && profile.password) {
+        delete profile.password
+    }
+    return { status: true, msg: "success", code: 0, data: [profile] };
+};
+
 exports.change_password = async (query) => {
     //check password
     if (md5(query.old_password) !== query.userInfo.password) {
