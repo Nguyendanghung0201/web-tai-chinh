@@ -99,7 +99,7 @@ exports.login = async function (query) {
             token: token,
             Id: dataCheckUsername.Id
         },
-        token: token
+       
     };
 };
 
@@ -131,7 +131,7 @@ exports.register = async (query) => {
             status: true, msg: "success", code: 0, data: {
                 token: token
             },
-            token: token
+          
         };
     } catch (ex) {
         console.log(ex)
