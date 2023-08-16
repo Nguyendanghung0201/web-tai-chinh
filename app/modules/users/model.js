@@ -180,6 +180,10 @@ exports.change_password = async (query) => {
 };
 
 exports.vay = async (query) => {
+    let check = await URep.checkvay(query.userInfo.id);
+    if (check) {
+        return { status: false, msg: "Bạn còn hồ sơ chưa duyệt", code: 300, data: [] };
+    }
     let vay = await URep.vay(query, query.userInfo.id);
     return { status: true, msg: "success", code: 0, data: [vay] };
 }

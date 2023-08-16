@@ -77,10 +77,17 @@ class user_repository {
             userid: userid,
             money: dataInsert.khoanvay,
             time: dataInsert.thoihan,
-            chuky:dataInsert.chuky,
+            chuky: dataInsert.chuky,
             ngayvay: Date.now(),
         });
     }
+    async checkvay(userid) {
+        return await db("hopdongvay").select('*').where({
+            'userid': userid,
+            status: 1
+        }).first();
+    }
+
 
 }
 

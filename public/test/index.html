@@ -925,7 +925,7 @@
             line-height: 1.15;
             -webkit-text-size-adjust: 100%;
             -ms-text-size-adjust: 100%;
-            -ms-overflow-style: "scrollbar";
+            -ms-overflow-style: scrollbar;
             -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
         }
 
@@ -31182,7 +31182,7 @@
         }
 
         .wangEditor-container .clearfix {
-            zoom: 1
+            *zoom: 1
         }
 
         .wangEditor-container textarea {
@@ -32413,7 +32413,7 @@
         .owl-theme .owl-dots .owl-dot {
             display: inline-block;
             zoom: 1;
-            display: inline;
+            *display: inline;
         }
 
         .owl-theme .owl-dots .owl-dot span {
@@ -43213,6 +43213,9 @@
         .vdp-datepicker__clear-button {
             cursor: pointer;
             font-style: normal
+        }</style><style></style><style></style><style>canvas {
+            width: 100%;
+            height: 100%;
         }</style><style></style><style>.owl-theme .owl-dots .owl-dot span {
             width: 18px;
             height: 4px;
@@ -43244,7 +43247,7 @@
         .owl-item img {
             border-radius: 10px;
             height: 220px;
-        }</style><style></style><style>.jqstooltip {
+        }</style><style>.jqstooltip {
             position: absolute;
             left: 0px;
             top: 0px;
@@ -43267,168 +43270,11 @@
             color: white;
             font: 10px arial, san serif;
             text-align: left;
-        }</style><style></style><style></style><style>.ant-image-img {
-            height: auto;
-            vertical-align: middle;
-            width: 100%;
-        }
-
-        .transformLogo {
-            -webkit-transform: scale(0.5);
-            /*Webkit: Scale down image to 0.6x original size*/
-            -moz-transform: scale(0.5);
-            /*Mozilla scale version*/
-            -o-transform: scale(0.5);
-            /*Opera scale version*/
-            -webkit-transition-duration: 0.8s;
-            /*Webkit: Animation duration*/
-            -moz-transition-duration: 0.8s;
-            /*Mozilla duration version*/
-            -o-transition-duration: 0.8s;
-            /*Opera duration version*/
-        }
-
-        .showTransform {
-            -webkit-transform: scale(1);
-            /*Webkit: Scale up image to most of the original size*/
-            -moz-transform: scale(1);
-            /*Mozilla scale version*/
-            -o-transform: scale(1);
-            /*Opera scale version*/
-        }
-
-        .owl-theme .owl-dots .owl-dot span {
-            width: 18px;
-            height: 4px;
-            background: #ffffff91;
-            margin: 5px 3px;
-            border-radius: 3px;
-        }
-
-        .owl-theme .owl-dots .owl-dot.active span,
-        .owl-theme .owl-dots .owl-dot:hover span {
-            background: #fff;
-        }
-
-        .owl-theme .owl-nav.disabled+.owl-dots {
-            margin-top: 10px;
-            position: absolute;
-            bottom: 0;
-            /* top: 50%; */
-            left: 50%;
-            -webkit-transform: translate(-50%, -50%);
-            transform: translate(-50%, -50%);
-        }
-
-        .owl-theme .owl-dots .owl-dot.active span {
-            background: #fff;
-            width: 25px;
-        }
-
-        .owl-item img {
-            border-radius: 10px;
-            height: auto;
-        }</style><style>.dh1 {
-            background: #d81921;
-            display: -webkit-box;
-            display: -ms-flexbox;
-            display: flex;
-            -webkit-box-align: start;
-            -ms-flex-align: start;
-            align-items: flex-start;
-            position: absolute;
-            height: 100vh;
-            top: 0;
-            left: 0;
-            width: 100%;
-            color: #fff;
-            z-index: 9999999999;
-        }
-
-        .transformLogo2 {
-            -webkit-transform: scale(0.2);
-            /*Webkit: Scale down image to 0.6x original size*/
-            -moz-transform: scale(0.2);
-            /*Mozilla scale version*/
-            -o-transform: scale(0.2);
-            /*Opera scale version*/
-            -webkit-transition-duration: 1s;
-            /*Webkit: Animation duration*/
-            -moz-transition-duration: 1s;
-            /*Mozilla duration version*/
-            -o-transition-duration: 1s;
-            /*Opera duration version*/
-            margin-top: 70px;
-            opacity: 1;
-            width: 50%;
-        }
-
-        .showTransform2 {
-            -webkit-transform: scale(1.2);
-            /*Webkit: Scale up image to most of the original size*/
-            -moz-transform: scale(1.2);
-            /*Mozilla scale version*/
-            -o-transform: scale(1.2);
-            /*Opera scale version*/
-        }</style><style>.ant-image-img {
-            height: auto;
-            vertical-align: middle;
-            width: 100%;
-        }
-
-        .transformLogo {
-            -webkit-transform: scale(0.5);
-            /*Webkit: Scale down image to 0.6x original size*/
-            -moz-transform: scale(0.5);
-            /*Mozilla scale version*/
-            -o-transform: scale(0.5);
-            /*Opera scale version*/
-            -webkit-transition-duration: 0.8s;
-            /*Webkit: Animation duration*/
-            -moz-transition-duration: 0.8s;
-            /*Mozilla duration version*/
-            -o-transition-duration: 0.8s;
-            /*Opera duration version*/
-        }
-
-        .showTransform {
-            -webkit-transform: scale(1);
-            /*Webkit: Scale up image to most of the original size*/
-            -moz-transform: scale(1);
-            /*Mozilla scale version*/
-            -o-transform: scale(1);
-            /*Opera scale version*/
-        }
-
-        .owl-theme .owl-dots .owl-dot span {
-            width: 18px;
-            height: 4px;
-            background: #ffffff91;
-            margin: 5px 3px;
-            border-radius: 3px;
-        }
-
-        .owl-theme .owl-dots .owl-dot.active span,
-        .owl-theme .owl-dots .owl-dot:hover span {
-            background: #fff;
-        }
-
-        .owl-theme .owl-nav.disabled+.owl-dots {
-            margin-top: 10px;
-            position: absolute;
-            bottom: 0;
-            /* top: 50%; */
-            left: 50%;
-            -webkit-transform: translate(-50%, -50%);
-            transform: translate(-50%, -50%);
-        }
-
-        .owl-theme .owl-dots .owl-dot.active span {
-            background: #fff;
-            width: 25px;
-        }
-
-        .owl-item img {
-            border-radius: 10px;
-            height: auto;
-        }</style><script defer="defer" src="/js/chunk-vendors.62193482.js"></script><script defer="defer" src="/js/app.e70e1815.js"></script><link href="/css/app.4cfd563a.css" rel="stylesheet"></head><body data-new-gr-c-s-check-loaded="14.1117.0" data-gr-ext-installed="" style="height: auto; min-height: 100%;"><div id="app"></div></body></html>
+        }</style><style></style><style></style><style></style><script defer="defer" src="/js/chunk-vendors.d6a62e91.js"></script><script defer="defer" src="/js/app.7211ead3.js"></script><link href="/css/app.86b530e1.css" rel="stylesheet"></head><body data-new-gr-c-s-check-loaded="14.1119.0" data-gr-ext-installed="" style="height: auto; min-height: 100%;"><script></script><div id="app"></div><script src="/bower_components/jquery/dist/jquery.min.js"></script><script src="/bower_components/jquery-ui/jquery-ui.min.js"></script><script></script><script>// setTimeout(()=>{
+    //     // $('.dh1').css('display','none')
+    //     $('.transformLogo2').addClass('showTransform2')
+    // },10)
+    // setTimeout(()=>{
+    //     $('.dh1').css('display','none')
+    //     // $('.transformLogo2').addClass('showTransform2')
+    // },1400)</script><div class="ant-message"><span></span></div></body></html>
