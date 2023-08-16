@@ -99,10 +99,19 @@ exports.login = async function (query) {
             token: token,
             Id: dataCheckUsername.Id
         },
-       
+
     };
 };
 
+exports.getvay = async (query) => {
+    let vay = await URep.checkvay(query.userInfo.id)
+    return {
+        status: true,
+        msg: "success",
+        code: 0,
+        data: vay
+    }
+}
 exports.register = async (query) => {
     let result = [];
     try {
@@ -131,7 +140,7 @@ exports.register = async (query) => {
             status: true, msg: "success", code: 0, data: {
                 token: token
             },
-          
+
         };
     } catch (ex) {
         console.log(ex)

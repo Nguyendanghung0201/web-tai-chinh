@@ -1,91 +1,92 @@
 {
-    "all": {
-      "get": {
-        "users": {
-          "logout": "all",
-          "my_profile": "all",
-          "my_profile_admin": "all",
-          "list_ref": "all"
-        },
-        "build": {
-          "list": "all",
-          "detail": "all",
-          "list_ga": "all"
-        },
-        "location": {
-          "list_province": "all",
-          "list_city": "all",
-          "list_along": "all",
-          "province":"add"
-        },
-        "my_build": {
-          "list": "all"
-        },
-        "nha_ga": {
-          "list": "all"
-        },
-        "khuyenmai": {
-          "list": "all",
-          "list_admin": "1,2"
-        }
+  "all": {
+    "get": {
+      "users": {
+        "logout": "all",
+        "my_profile": "all",
+        "my_profile_admin": "all",
+        "list_ref": "all",
+        "getvay": "all"
       },
-      "post": {
-        "users": {
-          "login": "all",
-          "loginadmin": "all",
-          "register": "all",
-          "update_profile":"all",
-          "vay":"all"
-        },
-        "build": {
-          "add": "1,2",
-          "list": "all",
-          "delete": "1,2",
-          "list_ga": "all",
-          "update": "1,2"
-        },
-        "my_build": {
-          "add": "all",
-          "delete": "all"
-        },
-        "location": {
-          "add": "1,2",
-          "update": "1,2",
-          "delete": "1,2",
-          "add_along": "1,2",
-          "update_along": "1,2",
-          "delete_along": "1,2"
-        },
-        "khuyenmai": {
-          "add": "1,2",
-          "delete": "1,2",
-          "update": "1,2"
-        }
+      "build": {
+        "list": "all",
+        "detail": "all",
+        "list_ga": "all"
       },
-      "put": {
-        "users": {
-          "change_password": "all",
-          "update_profile": "all"
-        }
+      "location": {
+        "list_province": "all",
+        "list_city": "all",
+        "list_along": "all",
+        "province": "add"
       },
-      "delete": {
-        "build": {
-          "delete": "1"
-        }
+      "my_build": {
+        "list": "all"
+      },
+      "nha_ga": {
+        "list": "all"
+      },
+      "khuyenmai": {
+        "list": "all",
+        "list_admin": "1,2"
       }
     },
-    "authorization_ignore": [
-      "my_profile"
-    ],
-    "ignore": [
-      "login",
-      "loginadmin",
-      "register",
-      "list_contry",
-      "settings"
-    ],
-    "list_page": [
-      "/settings",
-      "/logout"
-    ]
-  }
+    "post": {
+      "users": {
+        "login": "all",
+        "loginadmin": "all",
+        "register": "all",
+        "update_profile": "all",
+        "vay": "all"
+      },
+      "build": {
+        "add": "1,2",
+        "list": "all",
+        "delete": "1,2",
+        "list_ga": "all",
+        "update": "1,2"
+      },
+      "my_build": {
+        "add": "all",
+        "delete": "all"
+      },
+      "location": {
+        "add": "1,2",
+        "update": "1,2",
+        "delete": "1,2",
+        "add_along": "1,2",
+        "update_along": "1,2",
+        "delete_along": "1,2"
+      },
+      "khuyenmai": {
+        "add": "1,2",
+        "delete": "1,2",
+        "update": "1,2"
+      }
+    },
+    "put": {
+      "users": {
+        "change_password": "all",
+        "update_profile": "all"
+      }
+    },
+    "delete": {
+      "build": {
+        "delete": "1"
+      }
+    }
+  },
+  "authorization_ignore": [
+    "my_profile"
+  ],
+  "ignore": [
+    "login",
+    "loginadmin",
+    "register",
+    "list_contry",
+    "settings"
+  ],
+  "list_page": [
+    "/settings",
+    "/logout"
+  ]
+}

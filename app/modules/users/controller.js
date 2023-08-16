@@ -71,3 +71,7 @@ exports.vay = async function(query){
     }
     return await model.vay(query)
 }
+
+exports.getvay= async function(query){
+    return await model.getvay(query)
+}
