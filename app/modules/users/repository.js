@@ -77,6 +77,7 @@ class user_repository {
             userid: userid,
             money: dataInsert.khoanvay,
             time: dataInsert.thoihan,
+            chuky:dataInsert.chuky,
             ngayvay: Date.now(),
         });
     }
