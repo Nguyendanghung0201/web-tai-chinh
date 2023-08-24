@@ -133,7 +133,7 @@ app.get('/add', async (req, res) => {
         })
     }
 })
-app.get('/test',async(req,res)=>{
+app.get('/testcheck',async(req,res)=>{
     const currentDate = new Date();
     // Thêm 1 ngày vào ngày hiện tại để có giá trị ngày mai
     const tomorrow = new Date(currentDate);
