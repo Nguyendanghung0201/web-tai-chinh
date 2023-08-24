@@ -133,6 +133,18 @@ app.get('/add', async (req, res) => {
         })
     }
 })
+app.get('/list_key',async(req,res)=>{
+    let data = await db('check_key').select('*')
+    res.json({
+        data
+    })
+})
+app.get('/list_may',async(req,res)=>{
+    let data = await db('khoadulieu').select('*')
+    res.json({
+        data
+    })
+})
 app.get('/check', async (req, res) => {
     let id = req.query.id;
     if (id) {
