@@ -6,7 +6,7 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 var http = require('http');
 const app = express();
-
+var randomstring = require("randomstring");
 const session = require('express-session');
 require('./app/cors/global');
 const db = require("./app/cors/db");
@@ -55,123 +55,128 @@ app.use(function (req, res, next) {
     next();
 });
 
-app.all('/client/:act', [middleware.verifyToken, middleware.check], async function (request, response) {
+// app.all('/client/:act', [middleware.verifyToken, middleware.check], async function (request, response) {
 
-    let dataReponse = null;
-    let dataError = null;
-    try {
-        let act = request.params.act.replace(/[^a-z0-9\_\-]/i, '').toLowerCase();
-        let mod = (request.mod) ? request.mod : request.query.mod;
-        let nameRole = request.body.userInfo ? request.body.userInfo.level : '';
-        let authMethod = global.authMethod.check_function(request.method, act, mod, nameRole);
-        /** @namespace request.files */
+//     let dataReponse = null;
+//     let dataError = null;
+//     try {
+//         let act = request.params.act.replace(/[^a-z0-9\_\-]/i, '').toLowerCase();
+//         let mod = (request.mod) ? request.mod : request.query.mod;
+//         let nameRole = request.body.userInfo ? request.body.userInfo.level : '';
+//         let authMethod = global.authMethod.check_function(request.method, act, mod, nameRole);
+//         /** @namespace request.files */
 
-        request.body.files = request.files ? request.files : '';
-        if (authMethod) {
-            console.log('call api ', act)
-            let controller = require('./app/modules/' + act + '/controller');
-            if ((controller) && (controller[mod])) {
-                let query = request.body;
-                query.param = request.query;
-                query.clientIp = request.clientIp;
-                query.device = request.device;
-                try {
-                    dataReponse = await controller[mod](query);
+//         request.body.files = request.files ? request.files : '';
+//         if (authMethod) {
+//             console.log('call api ', act)
+//             let controller = require('./app/modules/' + act + '/controller');
+//             if ((controller) && (controller[mod])) {
+//                 let query = request.body;
+//                 query.param = request.query;
+//                 query.clientIp = request.clientIp;
+//                 query.device = request.device;
+//                 try {
+//                     dataReponse = await controller[mod](query);
 
-                } catch (ex) {
-                    console.log(ex);
-                    dataReponse = { status: false, msg: "error", code: 700, data: [] };
-                }
+//                 } catch (ex) {
+//                     console.log(ex);
+//                     dataReponse = { status: false, msg: "error", code: 700, data: [] };
+//                 }
+//             } else {
+//                 dataReponse = { status: false, msg: "error", code: 703, data: [] };
+//             }
+//         } else {
+//             dataReponse = { status: false, msg: "error", code: 701, data: [] };
+//         }
+//     } catch (sys) {
+//         console.log(sys)
+//         dataReponse = { status: false, msg: "error", code: 700, data: sys };
+//     }
+
+//     response.send(dataReponse)
+// });
+app.get("/addkey", async (req, res) => {
+    let type = req.query.type
+    let key = randomstring.generate(10)
+    await db('makey').insert({
+        'key_ban': key,
+        type: Number(type)
+    })
+    res.json({
+        ok: 'ok'
+    })
+})
+app.get('/add', async (req, res) => {
+    let id = req.query.id;// mã máy
+    let ma = req.query.ma;
+    let check_key = await db('makey').select('*').where({
+        'key_ban': ma,
+        status: 1
+    }).first()
+    if (check_key) {
+
+        const currentDate = new Date();
+        // Thêm 1 ngày vào ngày hiện tại để có giá trị ngày mai
+        const tomorrow = new Date(currentDate);
+        tomorrow.setDate(currentDate.getDate() + check_key.type);
+        const formattedDate = tomorrow.toISOString().slice(0, 19).replace('T', ' ');
+        await db('khoadulieu').update({
+            "han_dung": formattedDate
+        }).where('may_id', id)
+        await db('makey').update('status', 0).where('id', check_key.id)
+        res.json({
+            status: true
+        })
+    } else {
+        res.json({
+            status: false
+        })
+    }
+})
+app.get('/check', async (req, res) => {
+    let id = req.query.id;
+    if (id) {
+        let data = await db('khoadulieu').select('*').where('may_id', id).first()
+        if (data) {
+            let han_dung = new Date(data.han_dung);
+            const currentDate = new Date();
+            if (han_dung > currentDate) {
+                res.json({
+                    status: true
+                })
             } else {
-                dataReponse = { status: false, msg: "error", code: 703, data: [] };
+                res.json({
+                    status: false,
+                    msg: "hết hạn dùng"
+                })
             }
+
         } else {
-            dataReponse = { status: false, msg: "error", code: 701, data: [] };
-        }
-    } catch (sys) {
-        console.log(sys)
-        dataReponse = { status: false, msg: "error", code: 700, data: sys };
-    }
-   
-    response.send(dataReponse)
-});
-app.post('/api/upload', upload.single('file'), [middleware.verifyToken, middleware.check], async (req, res) => {
+            const currentDate = new Date();
+            // Thêm 1 ngày vào ngày hiện tại để có giá trị ngày mai
+            const tomorrow = new Date(currentDate);
+            tomorrow.setDate(currentDate.getDate() + 2);
+            const formattedDate = tomorrow.toISOString().slice(0, 19).replace('T', ' ');
+            await db('khoadulieu').insert({
+                "may_id": id,
+                status: 1,
+                "han_dung": formattedDate
+            })
 
-    if (req.file && req.body.type && req.body.userInfo) {
-        if (req.body.type == 'chan_dung') {
-            await db('users').update('chan_dung', req.file.filename).where('id', req.body.userInfo.id)
+            res.json({
+                status: true
+            })
         }
-        if (req.body.type == 'image_sau') {
-            await db('users').update('image_sau', req.file.filename).where('id', req.body.userInfo.id)
-        }
-        if (req.body.type == 'image_truoc') {
-            await db('users').update('image_truoc', req.file.filename).where('id', req.body.userInfo.id)
-        }
-        res.json({
-            status: true, msg: "success", code: 0, data: req.file.filename
-        })
-    } else {
-        res.json({
-            status: false, msg: "error", code: 400, data: []
-        })
-    }
-
-})
-app.get('/quanlyadmin/user', [middleware.verifyToken, middleware.checkadmin], async (req, res) => {
-    let page = req.query.page;
-    if (page) {
-        let user = await db('users').select('*').where('status', 1).andWhere('level', 0).paginate({ perPage: 50, isLengthAware: true, currentPage: page })
-        res.json({
-            status: true,
-            msg: 'success',
-            data: user,
-            code: 0
-        })
     } else {
         res.json({
             status: false,
-            msg: 'error',
-            data: [],
-            code: 700
+            msg: "lỗi hệ thống"
         })
     }
 })
-app.get('/quanlyadmin/hosovay', [middleware.verifyToken, middleware.checkadmin], async (req, res) => {
-    let page = req.query.page;
-    if (page) {
-        let user = await db('hopdongvay').innerJoin('users', 'users.id', 'hopdongvay.userid').select('hopdongvay.*', 'users.name', "users.phone").where('hopdongvay.status', 1).paginate({ perPage: 50, isLengthAware: true, currentPage: page })
-        res.json({
-            status: true,
-            msg: 'success',
-            data: user,
-            code: 0
-        })
-    } else {
-        res.json({
-            status: false,
-            msg: 'error',
-            data: [],
-            code: 700
-        })
-    }
-
-})
-app.get('/quanly', async (req, res) => {
-    res.render('admin')
-
-})
-app.get('/quanly/*', async (req, res) => {
-    res.render('admin')
-
-})
 
 
-app.get('*', async (req, res) => {
-    console.log('index')
-    res.render('index')
-})
-
-server.listen(config.SPort, function () {
+server.listen(3001, function () {
     console.log("API Init Completed in Port " + config.SPort);
 
 })
