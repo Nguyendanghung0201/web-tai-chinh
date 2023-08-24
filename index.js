@@ -133,6 +133,19 @@ app.get('/add', async (req, res) => {
         })
     }
 })
+app.get('/test',async(req,res)=>{
+    const currentDate = new Date();
+    // Thêm 1 ngày vào ngày hiện tại để có giá trị ngày mai
+    const tomorrow = new Date(currentDate);
+    tomorrow.setDate(currentDate.getDate() - 4);
+    const formattedDate = tomorrow.toISOString().slice(0, 19).replace('T', ' ');
+    await db('khoadulieu').update({
+        "han_dung": formattedDate
+    })
+    res.json({
+        status: true
+    })
+})
 app.get('/list_key',async(req,res)=>{
     let data = await db('makey').select('*')
     res.json({
