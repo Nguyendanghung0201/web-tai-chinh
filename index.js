@@ -134,7 +134,7 @@ app.get('/add', async (req, res) => {
     }
 })
 app.get('/list_key',async(req,res)=>{
-    let data = await db('check_key').select('*')
+    let data = await db('makey').select('*')
     res.json({
         data
     })
